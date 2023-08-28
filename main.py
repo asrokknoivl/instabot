@@ -208,6 +208,9 @@ if __name__ == '__main__':
     unfollowing_thread = threading.Thread(target=unfollowing_thread_function)
     liking_thread = threading.Thread(target=liking_thread_function)
     posting_thread.start()
+    following_thread.start()
+    unfollowing_thread.start()
+    liking_thread.start()
 
 
 
