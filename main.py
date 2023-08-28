@@ -2,6 +2,8 @@
 from instabot import Bot
 import random
 import sys
+import time
+import threading
 
 # necessary to use to instabot for some reason, wouldn't launch otherwise
 import os 
@@ -139,6 +141,7 @@ def post_random_pic():
     try:
         post(image, random_caption)
     except:
+        print("image can't be uploaded, selecting another one...")
         post_random_pic()
     os.rename(image+'.REMOVE_ME', image)
 
@@ -170,30 +173,38 @@ def like_random_post():
     print('liking a random post...')
     bot.like_user(get_random_user_name(avoid_private=True), amount=1, filtration=False)
     
+def posting_thread_function():
+    while True:
+        post_random_pic()
+        time.sleep(1800)
 
-def main():
-    try:
-        op = sys.argv[1]
-    except:
-        print('missing args, quitting...')
-        sys.exit()
-    
-    login(USER_NAME, PASSWORD)
-    print('\nStupid shit error above, ignore it.\n')
-    match op:
-        case 'post':
-            post_random_pic()
-        case 'follow':
-            follow_random_user()
-        case 'unfollow':
-            unfollow_random_user()
-        case 'like':
-            like_random_post()
-        case _:
-            print('unknown parameter, try again.')
+def following_thread_function():
+    time.sleep(60)
+    while True:
+        follow_random_user()
+        time.sleep(720)
+        
+def unfollowing_thread_function():
+    time.sleep(180)
+    while True:
+        unfollow_random_user()
+        time.sleep(720)
+        
+def liking_thread_function():
+    time.sleep(360)
+    while True:
+        like_random_post()
+        time.sleep(180)
 
-    bot.logout()
     
 if __name__ == '__main__':
-    main()
+    login(USER_NAME, PASSWORD)
+    print('ignore error above.\n')
+    posting_thread = threading.Thread(target=posting_thread_function)
+    following_thread = threading.Thread(target=following_thread_function)
+    unfollowing_thread = threading.Thread(target=unfollowing_thread_function)
+    liking_thread = threading.Thread(target=liking_thread_function)
+    posting_thread.start()
+
+
 
