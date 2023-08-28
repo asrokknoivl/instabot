@@ -198,6 +198,7 @@ def liking_thread_function():
 
     
 if __name__ == '__main__':
+    print('>>>>>>> INSTABOT LAUNCHED: ')
     login(USER_NAME, PASSWORD)
     print('ignore error above.\n')
     posting_thread = threading.Thread(target=posting_thread_function)
