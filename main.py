@@ -20,8 +20,8 @@ except:
 # constants
 DB_PATH = 'db/kpopict_girl/'
 POSTED_RECORD = 'posted.txt'
-USER_NAME = 'rr.constantine.ecomm@gmail.com'
-PASSWORD = 'phiN!S-ATr?Glw4y!pif'
+USER_NAME = 'brandonshelbey112358@gmail.com'
+PASSWORD = 'brandonshelbey112358@gmail.comm+'
 CAPTIONS = [
     '😍',
     '🥰',
@@ -143,7 +143,7 @@ def post_random_pic():
     try:
         post(image, random_caption)
     except:
-        print("image can't be uploaded, selecting another one...")
+        print("image can't be uploaded, selecting another one...\n")
         post_random_pic()
     os.rename(image+'.REMOVE_ME', image)
 
@@ -154,8 +154,8 @@ def get_random_user_id(avoid_private=False):
     user_name_to_follow = bot.get_username_from_user_id(user_id_to_follow)
     user_info = bot.get_user_info(user_name_to_follow)
     if avoid_private and (user_info['is_private'] or user_info['media_count'] == 0):
-        print('user\' account is private or has no media, selecting another one...')
-        return get_random_user_id()
+        print('user\' account is private or has no media, selecting another one...\n')
+        return get_random_user_id(avoid_private)
     else:
         return user_id_to_follow
     
@@ -163,16 +163,16 @@ def get_random_user_name(avoid_private=False):
     return bot.get_username_from_user_id(get_random_user_id(avoid_private))
     
 def follow_random_user():
-    print('following a random user...')
+    print('following a random user...\n')
     bot.follow(get_random_user_id())
 
 def unfollow_random_user():
-    print('unfollowing a random user...')
-    followings = bot.get_user_following('kpop.runs.my.body')
+    print('unfollowing a random user...\n')
+    followings = bot.get_user_following('glorious.kpop.girl')
     bot.unfollow(random.choice(followings))
 
 def like_random_post():
-    print('liking a random post...')
+    print('liking a random post...\n')
     bot.like_user(get_random_user_name(avoid_private=True), amount=1, filtration=False)
     
 def posting_thread_function():
@@ -200,17 +200,17 @@ def liking_thread_function():
 
     
 if __name__ == '__main__':
-    print('>>>>>>> INSTABOT LAUNCHED: kpop.runs.my.body')
+    print('>>>>>>> INSTABOT LAUNCHED.\n')
     login(USER_NAME, PASSWORD)
     print('ignore error above.\n')
-    posting_thread = threading.Thread(target=posting_thread_function)
-    following_thread = threading.Thread(target=following_thread_function)
-    unfollowing_thread = threading.Thread(target=unfollowing_thread_function)
-    liking_thread = threading.Thread(target=liking_thread_function)
-    posting_thread.start()
-    following_thread.start()
-    unfollowing_thread.start()
-    liking_thread.start()
-
+    # posting_thread = threading.Thread(target=posting_thread_function)
+    # following_thread = threading.Thread(target=following_thread_function)
+    # unfollowing_thread = threading.Thread(target=unfollowing_thread_function)
+    # liking_thread = threading.Thread(target=liking_thread_function)
+    # posting_thread.start()
+    # following_thread.start()
+    # unfollowing_thread.start()
+    # liking_thread.start()
+    post_random_pic()
 
 
